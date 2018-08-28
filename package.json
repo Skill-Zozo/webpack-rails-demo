@@ -1,10 +1,114 @@
 {
-  "name": "webpack-rails-example",
-  "version": "0.0.1",
-  "license": "MIT",
+  "name": "zappi.client",
+  "version": "1.0.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Intellection/zappi.client.git"
+  },
+  "babel": {
+    "presets": [
+      "latest",
+      "stage-2",
+      "react"
+    ],
+    "env": {
+      "production": {
+        "plugins": [
+          "transform-react-remove-prop-types"
+        ]
+      },
+      "development": {
+        "plugins": [
+          "react-hot-loader/babel",
+          "syntax-flow",
+          "tcomb",
+          "transform-flow-strip-types"
+        ]
+      },
+      "io": {
+        "plugins": [
+          "react-hot-loader/babel",
+          "syntax-flow",
+          "tcomb",
+          "transform-flow-strip-types"
+        ]
+      }
+    }
+  },
   "dependencies": {
-    "stats-webpack-plugin": "^0.2.1",
-    "webpack": "^1.9.11",
-    "webpack-dev-server": "^1.9.0"
+    "@babel/core": "^7.0.0-beta.51",
+    "babel-loader": "6.2.10",
+    "babel-plugin-tcomb": "0.3.24",
+    "babel-plugin-transform-react-remove-prop-types": "0.2.11",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-react": "6.16.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "commander": "^2.9.0",
+    "css-loader": "0.26.1",
+    "d3": "^4.7.4",
+    "d3-drag": "^1.2.1",
+    "d3pie": "^0.2.1",
+    "exports-loader": "0.6.3",
+    "file-loader": "^0.11.1",
+    "happypack": "^4.0.0",
+    "image-webpack-loader": "^3.3.0",
+    "imports-loader": "0.7.0",
+    "jasmine-core": "2.5.2",
+    "jquery": "1.11.3",
+    "json-loader": "0.5.4",
+    "node-sass": "3.13.0",
+    "path": "^0.12.7",
+    "postcss-loader": "0.8.2",
+    "react-hot-loader": "3.0.0-beta.6",
+    "react-svg-loader": "^2.1.0",
+    "sass-loader": "4.1.1",
+    "stats-webpack-plugin": "0.4.2",
+    "style-loader": "0.13.1",
+    "svg-url-loader": "^2.1.1",
+    "tcomb": "3.2.15",
+    "uglify-loader": "1.3.0",
+    "underscore": "1.4.4",
+    "url-loader": "^0.5.8",
+    "webpack": "^3.5.5",
+    "webpack-md5-hash": "0.0.5",
+    "webpack-s3-plugin": "^1.0.0-rc.0",
+    "webpack-sentry-plugin": "1.5.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.21.0",
+    "babel-eslint": "7.1.1",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "3.12.2",
+    "eslint-import-resolver-node": "0.3.0",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-react": "6.8.0",
+    "handlebars": "^4.0.10",
+    "karma": "^1.5.0",
+    "karma-babel-preprocessor": "^7.0.0",
+    "karma-chrome-launcher": "2.0.0",
+    "karma-cli": "1.0.1",
+    "karma-jasmine": "1.0.2",
+    "karma-junit-reporter": "^1.2.0",
+    "karma-notify-reporter": "1.0.1",
+    "karma-phantomjs-launcher": "1.0.2",
+    "karma-scss-preprocessor": "2.0.0",
+    "karma-webpack": "^2.0.1",
+    "phantomjs-prebuilt": "2.1.13",
+    "webpack-dev-server": "2.2.0-rc.0"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "test": "node karma_parallel.js spec/js/karma.conf.js spec/js/charts/**/*.js spec/js/components/**/*.js spec/js/webpack/zappi/charts/**/*.js spec/js/webpack/zappi/components/**/*.js",
+    "watch": "DEVELOPMENT=true karma start spec/js/karma.conf.js",
+    "fluid": "APP_ENV=development webpack-dev-server --config config/webpack.config.js",
+    "fluid:dev": "APP_ENV=development HOT_RELOAD=true webpack-dev-server --config config/webpack.config.js",
+    "fluid:public": "APP_ENV=development PUBLIC_IP=$(ipconfig getifaddr en0) webpack-dev-server --config config/webpack.config.js",
+    "build": "webpack --config config/webpack.config.js --bail && rm public/webpack/*.map",
+    "build:dev": "APP_ENV=development webpack --config config/webpack.config.js --bail",
+    "asset:sync": "webpack --config config/webpack.config.js --bail"
   }
 }
